@@ -1,0 +1,448 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================
+   GOLDEN RATIO DESIGN SYSTEM
+   Based on φ (phi) = 1.618033988749895
+   Fibonacci sequence: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377
+   ============================================ */
+
+:root {
+  /* Golden Ratio Constants */
+  --phi: 1.618033988749895;
+  --phi-inv: 0.618033988749895;
+  
+  /* Fibonacci-based spacing scale (in px) */
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-3: 3px;
+  --space-5: 5px;
+  --space-8: 8px;
+  --space-13: 13px;
+  --space-21: 21px;
+  --space-34: 34px;
+  --space-55: 55px;
+  --space-89: 89px;
+  --space-144: 144px;
+  --space-233: 233px;
+  --space-377: 377px;
+  
+  /* Golden Ratio Typography Scale */
+  --text-xs: clamp(0.625rem, 0.5rem + 0.5vw, 0.75rem);      /* 10-12px */
+  --text-sm: clamp(0.75rem, 0.625rem + 0.5vw, 0.875rem);    /* 12-14px */
+  --text-base: clamp(0.875rem, 0.75rem + 0.5vw, 1rem);      /* 14-16px */
+  --text-lg: clamp(1rem, 0.875rem + 0.5vw, 1.125rem);       /* 16-18px */
+  --text-xl: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);        /* 18-20px */
+  --text-2xl: clamp(1.25rem, 1rem + 1vw, 1.5rem);           /* 20-24px */
+  --text-3xl: clamp(1.5rem, 1.25rem + 1vw, 1.875rem);       /* 24-30px */
+  --text-4xl: clamp(1.875rem, 1.5rem + 1.5vw, 2.25rem);     /* 30-36px */
+  --text-5xl: clamp(2.25rem, 1.75rem + 2vw, 3rem);          /* 36-48px */
+  --text-6xl: clamp(2.75rem, 2rem + 3vw, 3.75rem);          /* 44-60px */
+  --text-7xl: clamp(3.25rem, 2.5rem + 4vw, 4.5rem);         /* 52-72px */
+  --text-8xl: clamp(4rem, 3rem + 5vw, 6rem);                /* 64-96px */
+  --text-9xl: clamp(5rem, 3.5rem + 6vw, 8rem);              /* 80-128px */
+  
+  /* Golden Ratio Line Heights */
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-golden: 1.618;  /* The Golden Ratio itself */
+  --leading-relaxed: 1.75;
+  
+  /* Animation Timing (Fibonacci-based in seconds) */
+  --duration-instant: 0.089s;
+  --duration-fast: 0.144s;
+  --duration-normal: 0.233s;
+  --duration-smooth: 0.377s;
+  --duration-slow: 0.610s;
+  --duration-slower: 0.987s;
+  --duration-slowest: 1.597s;
+  
+  /* Golden Ease Curve */
+  --ease-golden: cubic-bezier(0.618, 0, 0.382, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Smooth scroll with reduced motion respect */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   RESPONSIVE FLUID TYPOGRAPHY
+   Scales proportionally across all screen sizes
+   ============================================ */
+
+/* Hero heading - largest text */
+.text-hero {
+  font-size: var(--text-8xl);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+}
+
+/* Section headings */
+.text-section {
+  font-size: var(--text-5xl);
+  line-height: var(--leading-snug);
+  letter-spacing: -0.01em;
+}
+
+/* Card/subsection headings */
+.text-card-title {
+  font-size: var(--text-2xl);
+  line-height: var(--leading-snug);
+}
+
+/* Body text */
+.text-body {
+  font-size: var(--text-base);
+  line-height: var(--leading-golden);
+}
+
+/* Small/caption text */
+.text-caption {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+/* ============================================
+   GOLDEN RATIO RESPONSIVE SPACING
+   Using clamp() for fluid scaling
+   ============================================ */
+
+/* Horizontal padding for containers */
+.px-golden {
+  padding-left: clamp(var(--space-21), 5vw, var(--space-144));
+  padding-right: clamp(var(--space-21), 5vw, var(--space-144));
+}
+
+/* Section vertical spacing */
+.py-section {
+  padding-top: clamp(var(--space-55), 10vh, var(--space-144));
+  padding-bottom: clamp(var(--space-55), 10vh, var(--space-144));
+}
+
+/* Card padding */
+.p-card {
+  padding: clamp(var(--space-21), 3vw, var(--space-34));
+}
+
+/* Gap utilities based on Fibonacci */
+.gap-fib-8 { gap: clamp(var(--space-5), 1vw, var(--space-8)); }
+.gap-fib-13 { gap: clamp(var(--space-8), 1.5vw, var(--space-13)); }
+.gap-fib-21 { gap: clamp(var(--space-13), 2vw, var(--space-21)); }
+.gap-fib-34 { gap: clamp(var(--space-21), 3vw, var(--space-34)); }
+.gap-fib-55 { gap: clamp(var(--space-34), 4vw, var(--space-55)); }
+
+/* ============================================
+   GOLDEN RECTANGLE ASPECT RATIOS
+   ============================================ */
+
+.aspect-golden { aspect-ratio: 1.618 / 1; }
+.aspect-golden-v { aspect-ratio: 1 / 1.618; }
+
+/* ============================================
+   RULE OF THIRDS GRID
+   ============================================ */
+
+.grid-thirds {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+/* ============================================
+   ANIMATION KEYFRAMES
+   ============================================ */
+
+/* Smooth fade in with upward motion */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-34));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth fade in with blur */
+@keyframes blurIn {
+  from {
+    opacity: 0;
+    filter: blur(13px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* Marquee for logos */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Pulse for indicators */
+@keyframes pulse-golden {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.618;
+    transform: scale(1.05);
+  }
+}
+
+/* Border beam rotation */
+@keyframes border-beam {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Shimmer sweep */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(var(--space-13) * -1)); }
+}
+
+/* Animation utility classes */
+.animate-fade-in-up {
+  animation: fadeInUp var(--duration-slow) var(--ease-smooth) forwards;
+}
+
+.animate-blur-in {
+  animation: blurIn var(--duration-smooth) var(--ease-smooth) forwards;
+}
+
+.animate-marquee {
+  animation: marquee 34s linear infinite;
+}
+
+.animate-pulse-golden {
+  animation: pulse-golden 2.618s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 5.5s ease-in-out infinite;
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   Golden Ratio scaled from 320px base
+   ============================================ */
+
+/* 
+  xs: 320px (base mobile)
+  sm: 518px (320 × φ)  → using 640px for practicality
+  md: 838px (518 × φ)  → using 768px for practicality
+  lg: 1024px
+  xl: 1280px
+  2xl: 1536px
+*/
+
+/* Container that scales with golden ratio padding */
+.container-golden {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(var(--space-21), 5vw, var(--space-144));
+  padding-right: clamp(var(--space-21), 5vw, var(--space-144));
+}
+
+/* ============================================
+   SHADCN COLOR TOKENS
+   ============================================ */
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --font-sans: 'General Sans', sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES FOR RESPONSIVE DESIGN
+   Everything scales proportionally
+   ============================================ */
+
+/* Responsive text that never compresses badly */
+.responsive-heading {
+  font-size: clamp(1.75rem, 5vw, 4.5rem);
+  line-height: 1.1;
+}
+
+.responsive-subheading {
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  line-height: 1.3;
+}
+
+.responsive-body {
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  line-height: 1.618;
+}
+
+/* Ensure images/videos scale properly */
+.responsive-media {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+/* Prevent text from getting too small on any device */
+@media (max-width: 320px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 640px) {
+  html {
+    font-size: calc(14px + 2 * ((100vw - 320px) / 320));
+  }
+}
+
+@media (min-width: 641px) {
+  html {
+    font-size: 16px;
+  }
+}
