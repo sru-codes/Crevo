@@ -9,8 +9,8 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   // 1. Networking: Extract connecting IP and Geolocation
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'Unknown IP'
-  const country = request.geo?.country || 'Unknown Country'
+  const ip = request.headers.get('x-forwarded-for') || 'Unknown IP'
+  const country = request.headers.get('x-vercel-ip-country') || 'Unknown Country'
 
   const response = NextResponse.next()
 
@@ -61,13 +61,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    {
-      source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
-      missing: [
-        { type: 'header', key: 'next-router-prefetch' },
-        { type: 'purpose', value: 'prefetch' },
-      ],
-    },
-    '/api/:path*',
+    '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 }

@@ -7,7 +7,7 @@ import { ChevronDown, Menu, X } from "lucide-react"
 import { MagneticButton, useNavbarScroll, ShimmerButton } from "./animations"
 
 const navLinks = [
-  { label: "Get Started", href: "/get-started" },
+  { label: "Dashboard", href: "/dashboard" },
   { label: "For Creators", href: "/for-creators" },
   { label: "Features", href: "/features" },
   { label: "Integrations", href: "/integrations" },
@@ -97,7 +97,7 @@ export function Navbar() {
             className="hidden lg:block"
           >
             <MagneticButton strength={0.15}>
-              <Link href="/get-started">
+              <Link href="/dashboard">
                 <WaitlistButton variant="dark" />
               </Link>
             </MagneticButton>
@@ -201,11 +201,11 @@ export function Navbar() {
                 className="mt-[21px]"
               >
                 <Link
-                  href="/get-started"
+                  href="/dashboard"
                   onClick={() => setMobileMenuOpen(false)}
                   className="inline-flex items-center px-[clamp(24px,6vw,34px)] py-[clamp(12px,3vw,16px)] bg-white text-black rounded-full font-medium text-[clamp(14px,4vw,16px)]"
                 >
-                  Join Waitlist
+                  Open Dashboard
                 </Link>
               </motion.div>
             </motion.div>
@@ -258,7 +258,7 @@ export function WaitlistButton({ variant = "dark" }: { variant?: "dark" | "light
           isDark ? "bg-black text-white" : "bg-white text-black"
         }`}
       >
-        Join Waitlist
+        Open Dashboard
       </div>
     </motion.button>
   )

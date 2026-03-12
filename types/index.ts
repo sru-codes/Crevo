@@ -11,6 +11,8 @@ export interface User {
   photoURL: string | null;
   plan: 'free' | 'pro' | 'business';
   stripeCustomerId?: string;
+  role: 'admin' | 'user';
+  status: 'pending' | 'verified' | 'rejected';
   createdAt: Date;
   updatedAt: Date;
 }
